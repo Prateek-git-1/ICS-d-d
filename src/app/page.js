@@ -1,103 +1,131 @@
 import Image from "next/image";
+import { NavigationMenu, 
+  NavigationMenuItem, 
+  NavigationMenuList,  
+  NavigationMenuTrigger,
+  NavigationMenuContent, 
+  NavigationMenuLink } from "@/components/ui/navigation-menu"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu, Phone } from "lucide-react"
+import Link from "next/link"
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <> 
+    {/* Header */}
+    <header className="w-full border-b">
+      <div className="container mx-auto flex flex-wrap p-4 flex-row md:flex-row items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center font-semibold text-xl">
+          ICS d&amp;d
+        </Link>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Mobile Menu */}
+        <div className="md:hidden flex items-center space-x-3 ml-auto">
+          <Button variant="ghost" size="icon">
+            <Phone className="h-5 w-5" />
+          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <nav className="flex flex-col items-center space-y-6 mt-16">
+                <Link href="/">Home</Link>
+                <Link href="/services">Service</Link>
+                <Link href="/projects">Projects</Link>
+                <Link href="/about">About Us</Link>
+                <Link href="/blog">Blog</Link>
+                <Button variant="outline">
+                  Query Now
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Button>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* Desktop Menu */}
+        <NavigationMenu className="hidden md:flex md:items-center">
+          <NavigationMenuList className="flex space-x-6 text-base md:text-sm lg:text-base">
+            <NavigationMenuItem>
+              <Link href="/" className="transition-colors">Home</Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/services" className="transition-colors">Service</Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Project</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[200px] gap-2 p-4">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link href="#">Components</Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link href="#">Documentation</Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link href="#">Blocks</Link>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/about" className="transition-colors">About Us</Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/blog" className="transition-colors">Blog</Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        {/* Desktop Button */}
+        <div className="mt-4 md:mt-0 hidden md:block">
+          <Button variant="outline">
+            Query Now
+            <svg
+              className="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Button>
+        </div>
+      </div>
+    </header>
+    {/* Hero */}
+    <main className="">
+
+    </main>
+    {/* Services */}
+    </>
   );
 }
